@@ -114,10 +114,16 @@ zle -N down-line-or-beginning-search
 # Enable custom scripts
 #-----------------------------
 source $HOME/.zsh/scripts.zsh
+
 #-----------------------------
-# Enable Starship
+# Check if Starship is installed and load it, if not, load a native Zsh theme 
 #-----------------------------
-eval "$(starship init zsh)"
+if ! [ -x "$(command -v starship)" ]
+then
+    prompt fade green
+else
+    eval "$(starship init zsh)"
+fi
 
 #-----------------------------
 # Enable syntax-highlighting plugin
