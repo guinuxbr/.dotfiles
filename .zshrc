@@ -128,4 +128,10 @@ fi
 #-----------------------------
 # Enable syntax-highlighting plugin
 #-----------------------------
-source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
+then
+    echo "zsh-syntx-highlighting is not installed"
+else
+    source $ZSH_SYNTAX_HIGHLIGHTING
+fi
