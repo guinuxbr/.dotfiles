@@ -126,12 +126,23 @@ else
 fi
 
 #-----------------------------
-# Enable syntax-highlighting plugin
+# Enable ZSH syntax-highlighting plugin
 #-----------------------------
-ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
 then
     echo "zsh-syntax-highlighting is not installed"
 else
     source $ZSH_SYNTAX_HIGHLIGHTING
+fi
+
+#-----------------------------
+# Enable ZSH autosuggestions plugin
+#-----------------------------
+ZSH_AUTOSUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
+then
+    echo "zsh-autosuggestions is not installed"
+else
+    source $ZSH_AUTOSUGGESTIONS
 fi

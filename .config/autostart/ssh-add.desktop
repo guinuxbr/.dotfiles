@@ -1,4 +1,21 @@
 [Desktop Entry]
-Exec=ssh-add -q ~/.ssh/github
-Name=ssh-add
+Comment[en_GB]=
+Comment=
+Exec=/home/guinuxbr/.config/autostart/ssh-add.sh
+GenericName[en_GB]=
+GenericName=
+Icon=dialog-scripts
+MimeType=
+Name[en_GB]=ssh-add.desktop
+Name=ssh-add.desktop
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
 Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-AutostartScript=true
+X-KDE-RunOnDiscreteGpu=false
+X-KDE-SubstituteUID=false
+X-KDE-Username=
