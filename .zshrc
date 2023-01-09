@@ -107,13 +107,24 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
-# Enable Pacman "command-not-found". "pkgfile" should be installed.
-#source /usr/share/doc/pkgfile/command-not-found.zsh
+# Enable Pacman "command-not-found". "pkgfile" should be installed
+# For Arch Linux only
+source /usr/share/doc/pkgfile/command-not-found.zsh
 
 #-----------------------------
 # Enable custom scripts
 #-----------------------------
 source $HOME/.zsh/scripts.zsh
+
+#-----------------------------
+# Start the agent automatically and make sure that only one ssh-agent process runs at a time
+#-----------------------------
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
 
 #-----------------------------
 # Check if Starship is installed and load it, if not, load a native Zsh theme 
@@ -128,7 +139,10 @@ fi
 #-----------------------------
 # Enable ZSH syntax-highlighting plugin
 #-----------------------------
-ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# For openSUSE
+#ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# For Arch Linux
+ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
 then
     echo "zsh-syntax-highlighting is not installed"
@@ -139,7 +153,10 @@ fi
 #-----------------------------
 # Enable ZSH autosuggestions plugin
 #-----------------------------
-ZSH_AUTOSUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# For openSUSE
+#ZSH_AUTOSUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# For Arch Linux
+ZSH_AUTOSUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
 then
     echo "zsh-autosuggestions is not installed"
