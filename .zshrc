@@ -19,9 +19,19 @@ SAVEHIST=10000
 setopt appendhistory
 
 #-----------------------------
+# Enable custom scripts
+#-----------------------------
+source $HOME/.zsh/scripts.zsh
+
+#-----------------------------
 # Load aliases file
 #-----------------------------
 source $HOME/.zsh/aliases.zsh
+
+#-----------------------------
+# Custom Git command specific for working with dotfiles
+#-----------------------------
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 #-----------------------------
 # Configure the direcory stack
@@ -110,11 +120,6 @@ zle -N down-line-or-beginning-search
 # Enable Pacman "command-not-found". "pkgfile" should be installed
 # For Arch Linux only
 source /usr/share/doc/pkgfile/command-not-found.zsh
-
-#-----------------------------
-# Enable custom scripts
-#-----------------------------
-source $HOME/.zsh/scripts.zsh
 
 #-----------------------------
 # Start the agent automatically and make sure that only one ssh-agent process runs at a time

@@ -1,4 +1,4 @@
-matrix () {
+matrix() {
     local lines=$(tput lines)
     cols=$(tput cols)
 
@@ -35,3 +35,9 @@ shrinkpdf() {
     gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$2" "$1" 
 
 } 
+
+gpos() {
+    git add .
+    git commit -m $1
+    git push
+}
