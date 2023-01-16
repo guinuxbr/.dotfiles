@@ -41,3 +41,35 @@ gpos() {
     git commit -m $1
     git push
 }
+
+zdup() {
+    if [[ $1 = "-h" ]] || [[ -z $1 ]]; then
+        echo "Usage:"
+        echo "zdup -r to run 'sudo zypper dup --details --recommends'"
+        echo "zdup -nr to run 'sudo zypper dup --details --no-recommends'"
+    elif [[ $1 = "-r" ]]; then
+        echo "'sudo zypper dup --details --recommends' will be executed!"
+        sudo zypper dup --details --recommends
+    elif [[ $1 = "-nr" ]]; then
+        echo "'sudo zypper dup --details --no-recommends' will be executed!"
+        sudo zypper dup --details --no-recommends
+    else
+        echo "Unrecognized option, use zdup -h."
+    fi
+}
+
+zind() {
+    if [[ $1 = "-h" ]] || [[ -z $1 ]]; then
+        echo "Usage:"
+        echo "zind -r to run 'sudo zypper in --details --recommends'"
+        echo "zind -nr to run 'sudo zypper in --details --no-recommends'"
+    elif [[ $1 = "-r" ]]; then
+        echo "'sudo zypper in --details --recommends "${@:2}"' will be executed!"
+        sudo zypper in --details --recommends "${@:2}"
+    elif [[ $1 = "-nr" ]]; then
+        echo "'sudo zypper in --details --no-recommends "${@:2}"' will be executed!"
+        sudo zypper in --details --no-recommends "${@:2}"
+    else
+        echo "Unrecognized option, use zind -h."
+    fi
+}
