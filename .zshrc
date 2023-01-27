@@ -29,11 +29,6 @@ source $HOME/.zsh/scripts.zsh
 source $HOME/.zsh/aliases.zsh
 
 #-----------------------------
-# Custom Git command specific for working with dotfiles
-#-----------------------------
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
-#-----------------------------
 # Configure the direcory stack
 # See alias for 'dirs -v'
 #-----------------------------
