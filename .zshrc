@@ -1,59 +1,59 @@
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Set PATH
-#-----------------------------
+#---------------------------------------------------------------------------------
 export PATH=$PATH:$HOME/bin
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Enable some basic completions
-#-----------------------------
+#---------------------------------------------------------------------------------
 autoload -Uz compinit promptinit
 compinit
 promptinit
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Enable the history file
-#-----------------------------
+#---------------------------------------------------------------------------------
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Enable custom scripts
-#-----------------------------
+#---------------------------------------------------------------------------------
 source $HOME/.zsh/scripts.zsh
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Load aliases file
-#-----------------------------
+#---------------------------------------------------------------------------------
 source $HOME/.zsh/aliases.zsh
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Configure the direcory stack
 # See alias for 'dirs -v'
-#-----------------------------
+#---------------------------------------------------------------------------------
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
 setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Enable arrow selection
-#-----------------------------
+#---------------------------------------------------------------------------------
 zstyle ':completion:*' menu select
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Enable autocompletion of command line switches for aliases
-#-----------------------------
+#---------------------------------------------------------------------------------
 setopt COMPLETE_ALIASES
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Enable autocompletion of privileged environments in privileged commands.
-#-----------------------------
+#---------------------------------------------------------------------------------
 zstyle ':completion::complete:*' gain-privileges 1
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Set up key bindings
-#-----------------------------
+#---------------------------------------------------------------------------------
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
 typeset -g -A key
@@ -102,9 +102,9 @@ key[Control-Right]="${terminfo[kRIT5]}"
 [[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Enable history search
-#-----------------------------
+#---------------------------------------------------------------------------------
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
@@ -116,9 +116,10 @@ zle -N down-line-or-beginning-search
 # For Arch Linux only
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
-#-----------------------------
-# Start the agent automatically and make sure that only one ssh-agent process runs at a time
-#-----------------------------
+#---------------------------------------------------------------------------------
+# Start the SSH agent automatically
+# Ensure only one ssh-agent process is running
+#---------------------------------------------------------------------------------
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
@@ -126,9 +127,9 @@ if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
 fi
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Check if Starship is installed and load it, if not, load a native Zsh theme 
-#-----------------------------
+#---------------------------------------------------------------------------------
 if ! [ -x "$(command -v starship)" ]
 then
     prompt fade green
@@ -136,9 +137,9 @@ else
     eval "$(starship init zsh)"
 fi
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Enable ZSH syntax-highlighting plugin
-#-----------------------------
+#---------------------------------------------------------------------------------
 # For openSUSE
 #ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # For Arch Linux
@@ -150,9 +151,9 @@ else
     source $ZSH_SYNTAX_HIGHLIGHTING
 fi
 
-#-----------------------------
+#---------------------------------------------------------------------------------
 # Enable ZSH autosuggestions plugin
-#-----------------------------
+#---------------------------------------------------------------------------------
 # For openSUSE
 #ZSH_AUTOSUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # For Arch Linux
@@ -163,3 +164,9 @@ then
 else
     source $ZSH_AUTOSUGGESTIONS
 fi
+
+
+#---------------------------------------------------------------------------------
+# Enable "The Fuck" https://github.com/nvbn/thefuck
+#---------------------------------------------------------------------------------
+eval $(thefuck --alias)
