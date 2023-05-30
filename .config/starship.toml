@@ -87,7 +87,7 @@ disabled = false
 style = "bg:blue"
 symbol = "🔴"
 map_symbol = true
-format = '[\[$symbol $common_meaning$signal_name$maybe_int\]]($style) '
+format = "[[$symbol $common_meaning$signal_name$maybe_int]]($style) "
 
 [hostname]
 ssh_only = false
@@ -100,6 +100,7 @@ disabled = false
 disabled = false
 threshold = -1
 symbol = "🧠"
+format = "$symbol [${ram}( | ${swap})]($style) "
 style = "bold dimmed green"
 
 [username]
