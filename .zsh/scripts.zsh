@@ -73,3 +73,19 @@ zind() {
         echo "Unrecognized option, use zind -h."
     fi
 }
+
+zrmd() {
+    if [[ $1 = "-h" ]] || [[ -z $1 ]]; then
+        echo "Usage:"
+        echo "zrmd -d to run 'sudo zypper rm --details'"
+        echo "zrmd -cd to run 'sudo zypper rm --details --clean-deps'"
+    elif [[ $1 = "-d" ]]; then
+        echo "'sudo zypper rm --details "${@:2}"' will be executed!"
+        sudo zypper rm --details "${@:2}"
+    elif [[ $1 = "-cd" ]]; then
+        echo "'sudo zypper rm --details --clean-deps "${@:2}"' will be executed!"
+        sudo sudo zypper rm --details --clean-deps "${@:2}"
+    else
+        echo "Unrecognized option, use zrmd -h."
+    fi
+}

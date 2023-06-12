@@ -1,13 +1,13 @@
 [Desktop Entry]
 Comment[en_GB]=
 Comment=
-Exec=ssh-add -q .ssh/github .ssh/guinuxbr_ed25519
+Exec=ssh-add -q /home/guinuxbr/.ssh/github /home/guinuxbr/.ssh/guinuxbr_ed25519 '<' /dev/null
 GenericName[en_GB]=
 GenericName=
 MimeType=
 Name[en_GB]=ssh-add
 Name=ssh-add
-Path=
+Path=/home/guinuxbr
 StartupNotify=true
 Terminal=false
 TerminalOptions=

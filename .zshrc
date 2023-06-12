@@ -1,4 +1,9 @@
 #---------------------------------------------------------------------------------
+# Check the Linux distribution name
+#---------------------------------------------------------------------------------
+export OSNAME=$(lsb_release -i | cut -f 2-)
+
+#---------------------------------------------------------------------------------
 # Set PATH
 #---------------------------------------------------------------------------------
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin
@@ -121,18 +126,24 @@ zle -N down-line-or-beginning-search
 # Enable Pacman "command-not-found". "pkgfile" should be installed
 # For Arch Linux only
 #---------------------------------------------------------------------------------
-source /usr/share/doc/pkgfile/command-not-found.zsh
+if [[ $OSNAME == "Arch Linux" ]]
+then
+    source /usr/share/doc/pkgfile/command-not-found.zsh
+fi
 
 #---------------------------------------------------------------------------------
 # Start the SSH agent automatically
 # Ensure only one ssh-agent process is running
 # For Arch Linux only
 #---------------------------------------------------------------------------------
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
-    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+if [[ $OSNAME == "Arch Linux" ]]
+then
+    if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+        ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+    fi
+    if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
+        source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+    fi
 fi
 
 #---------------------------------------------------------------------------------
@@ -148,29 +159,48 @@ fi
 #---------------------------------------------------------------------------------
 # Enable ZSH syntax-highlighting plugin
 #---------------------------------------------------------------------------------
-# For openSUSE
-#ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-# For Arch Linux
-ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
+
+if [[ $OSNAME == "openSUSE" ]]
 then
-    echo "zsh-syntax-highlighting is not installed"
-else
-    source $ZSH_SYNTAX_HIGHLIGHTING
+    ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
+    then
+        echo "zsh-syntax-highlighting is not installed"
+    else
+        source $ZSH_SYNTAX_HIGHLIGHTING
+    fi
+elif [[ $OSNAME == "Arch Linux" ]]
+then
+    ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
+    then
+        echo "zsh-syntax-highlighting is not installed"
+    else
+        source $ZSH_SYNTAX_HIGHLIGHTING
+    fi
 fi
 
 #---------------------------------------------------------------------------------
 # Enable ZSH autosuggestions plugin
 #---------------------------------------------------------------------------------
-# For openSUSE
-#ZSH_AUTOSUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-# For Arch Linux
-ZSH_AUTOSUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
+if [[ $OSNAME == "openSUSE" ]]
 then
-    echo "zsh-autosuggestions is not installed"
-else
-    source $ZSH_AUTOSUGGESTIONS
+    ZSH_AUTOSUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
+    then
+        echo "zsh-autosuggestions is not installed"
+    else
+        source $ZSH_AUTOSUGGESTIONS
+    fi
+elif [[ $OSNAME == "Arch Linux" ]]
+then
+    ZSH_AUTOSUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
+    then
+        echo "zsh-autosuggestions is not installed"
+    else
+        source $ZSH_AUTOSUGGESTIONS
+    fi
 fi
 
 #---------------------------------------------------------------------------------
