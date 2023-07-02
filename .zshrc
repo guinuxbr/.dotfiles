@@ -1,4 +1,13 @@
 #---------------------------------------------------------------------------------
+# Define color escape sequences
+#---------------------------------------------------------------------------------
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+RESET='\033[0m'
+
+#---------------------------------------------------------------------------------
 # Check the Linux distribution name
 #---------------------------------------------------------------------------------
 export OSNAME=$(lsb_release -i | cut -f 2-)
@@ -126,9 +135,15 @@ zle -N down-line-or-beginning-search
 # Enable Pacman "command-not-found". "pkgfile" should be installed
 # For Arch Linux only
 #---------------------------------------------------------------------------------
-if [[ $OSNAME == "Arch Linux" ]]
+if [[ $OSNAME == "Arch" ]]
 then
-    source /usr/share/doc/pkgfile/command-not-found.zsh
+    COMMAND_NOT_FOUND="/usr/share/doc/pkgfile/command-not-found.zsh"
+    if ! [[ -f $COMMAND_NOT_FOUND ]]
+    then
+        echo "${RED}pkgfile${RESET} is not installed"
+    else
+        source $COMMAND_NOT_FOUND
+    fi
 fi
 
 #---------------------------------------------------------------------------------
@@ -136,7 +151,7 @@ fi
 # Ensure only one ssh-agent process is running
 # For Arch Linux only
 #---------------------------------------------------------------------------------
-if [[ $OSNAME == "Arch Linux" ]]
+if [[ $OSNAME == "Arch" ]]
 then
     if ! pgrep -u "$USER" ssh-agent > /dev/null; then
         ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
@@ -165,16 +180,16 @@ then
     ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
     then
-        echo "zsh-syntax-highlighting is not installed"
+        echo "${RED}zsh-syntax-highlighting${RESET} is not installed"
     else
         source $ZSH_SYNTAX_HIGHLIGHTING
     fi
-elif [[ $OSNAME == "Arch Linux" ]]
+elif [[ $OSNAME == "Arch" ]]
 then
     ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
     then
-        echo "zsh-syntax-highlighting is not installed"
+        echo "${RED}zsh-syntax-highlighting${RESET} is not installed"
     else
         source $ZSH_SYNTAX_HIGHLIGHTING
     fi
@@ -188,16 +203,16 @@ then
     ZSH_AUTOSUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
     then
-        echo "zsh-autosuggestions is not installed"
+        echo "${RED}zsh-autosuggestions${RESET} is not installed"
     else
         source $ZSH_AUTOSUGGESTIONS
     fi
-elif [[ $OSNAME == "Arch Linux" ]]
+elif [[ $OSNAME == "Arch" ]]
 then
     ZSH_AUTOSUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
     if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
     then
-        echo "zsh-autosuggestions is not installed"
+        echo "${RED}zsh-autosuggestions${RESET} is not installed"
     else
         source $ZSH_AUTOSUGGESTIONS
     fi
@@ -208,7 +223,7 @@ fi
 #---------------------------------------------------------------------------------
 if ! [ -x "$(command -v thefuck)" ]
 then
-    :
+    echo "${RED}thefuck${RESET} is not installed"
 else
     eval $(thefuck --alias)
 fi
