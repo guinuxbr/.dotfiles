@@ -1,6 +1,6 @@
 # Base aliases
 alias ls='ls --color=auto'
-alias exa='exa --icons'
+alias eza='eza --icons'
 
 # Custom command to install Grub at default/fallback boot path
 alias grub2-removable='sudo grub2-install --target=x86_64-efi --efi-directory=/boot/efi --removable'

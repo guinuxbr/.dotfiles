@@ -1,7 +1,7 @@
 [Desktop Entry]
 Comment[en_GB]=
 Comment=
-Exec=ssh-add -q /home/guinuxbr/.ssh/github /home/guinuxbr/.ssh/guinuxbr_ed25519 '<' /dev/null
+Exec=ssh-add -q /home/guinuxbr/.ssh/github /home/guinuxbr/.ssh/guinuxbr_ed25519
 GenericName[en_GB]=
 GenericName=
 MimeType=

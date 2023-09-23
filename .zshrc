@@ -18,9 +18,14 @@ export OSNAME=$(lsb_release -i | cut -f 2-)
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 
 #---------------------------------------------------------------------------------
-# Export the local IP
+# Export the local Ethernet IP
 #---------------------------------------------------------------------------------
-export LAN_IP=$(ip a | grep "scope global" | grep -Po '(?<=inet )[\d.]+')
+export ELAN_IP=$(ip a | grep -E "scope global.*enp" | grep -Po '(?<=inet )[\d.]+')
+
+#---------------------------------------------------------------------------------
+# Export the local Wireless IP
+#---------------------------------------------------------------------------------
+export WLAN_IP=$(ip a |  grep -E "scope global.*wl" | grep -Po '(?<=inet )[\d.]+')
 
 #---------------------------------------------------------------------------------
 # Enable some basic completions

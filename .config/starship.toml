@@ -100,7 +100,7 @@ disabled = false
 disabled = false
 threshold = -1
 symbol = "🧠"
-format = "$symbol [${ram}( | ${swap})]($style) "
+format = "$symbol [${ram}( | ${swap} \\(ZRAM\\))]($style) "
 style = "bold dimmed green"
 
 [username]
