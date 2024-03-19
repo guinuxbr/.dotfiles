@@ -47,9 +47,18 @@ shrinkpdf() {
 
 # GPOS - Git Push On Steroids :)
 gpos() {
-    git add .
-    git commit -m $1
-    git push
+    if [[ -z $1 ]]; then
+        echo "A commit mesage must be passed as an argument."
+    else
+        # Check if the current directory is a git repository
+        if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+            echo -e "${RED}Not a git repository.${RESET}"
+        else
+            git add .
+            git commit -m $1
+            git push
+        fi
+    fi
 }
 
 # zypper dup function
@@ -59,15 +68,18 @@ zdup() {
         echo "zdup -r to run 'sudo zypper dup --details --recommends'"
         echo "zdup -nr to run 'sudo zypper dup --details --no-recommends'"
     elif [[ $1 = "-r" ]]; then
-        echo "'${RED}sudo zypper dup --details --recommends${RESET}' will be executed!"
+        echo "${GREEN}Running 'sudo zypper dup --details --recommends'...${RESET}"
         echo ""
         sudo zypper dup --details --recommends
     elif [[ $1 = "-nr" ]]; then
-        echo "'${RED}sudo zypper dup --details --no-recommends${RESET}' will be executed!"
+        echo "${GREEN}Running 'sudo zypper dup --details --no-recommends'...${RESET}"
         echo ""
         sudo zypper dup --details --no-recommends
     else
-        echo "${RED}Unrecognized option, use zdup -h.${RESET}"
+        echo "${RED}Unrecognized option.${RESET}"
+        echo "Usage:"
+        echo "zdup -r to run 'sudo zypper dup --details --recommends'"
+        echo "zdup -nr to run 'sudo zypper dup --details --no-recommends'"
     fi
 }
 
@@ -75,20 +87,21 @@ zdup() {
 zind() {
     if [[ $1 = "-h" ]] || [[ -z $1 ]]; then
         echo "Usage:"
-        echo ""
         echo "zind -r to run 'sudo zypper in --details --recommends'"
-        echo ""
         echo "zind -nr to run 'sudo zypper in --details --no-recommends'"
     elif [[ $1 = "-r" ]]; then
-        echo "'${RED}sudo zypper in --details --recommends${RESET} "${@:2}"' will be executed!"
+        echo "${GREEN}Running 'sudo zypper in --details --recommends ${@:2}'...${RESET}"
         echo ""
         sudo zypper in --details --recommends "${@:2}"
     elif [[ $1 = "-nr" ]]; then
-        echo "'${RED}sudo zypper in --details --no-recommends${RESET} "${@:2}"' will be executed!"
+        echo "${GREEN}Running 'sudo zypper in --details --no-recommends ${@:2}'...${RESET}"
         echo ""
         sudo zypper in --details --no-recommends "${@:2}"
     else
-        echo "${RED}Unrecognized option, use zind -h.${RESET}"
+        echo "${RED}Unrecognized option.${RESET}"
+        echo "Usage:"
+        echo "zind -r to run 'sudo zypper in --details --recommends'"
+        echo "zind -nr to run 'sudo zypper in --details --no-recommends'"
     fi
 }
 
@@ -96,19 +109,64 @@ zind() {
 zrmd() {
     if [[ $1 = "-h" ]] || [[ -z $1 ]]; then
         echo "Usage:"
-        echo ""
         echo "zrmd -d to run 'sudo zypper rm --details'"
-        echo ""
         echo "zrmd -cd to run 'sudo zypper rm --details --clean-deps'"
     elif [[ $1 = "-d" ]]; then
-        echo "'${RED}sudo zypper rm --details${RESET} "${@:2}"' will be executed!"
+        echo "${RED}Running 'sudo zypper rm --details ${@:2}'...${RESET}"
         echo ""
         sudo zypper rm --details "${@:2}"
     elif [[ $1 = "-cd" ]]; then
-        echo "'${RED}sudo zypper rm --details --clean-deps${RESET} "${@:2}"' will be executed!"
+        echo "${RED}Running 'sudo zypper rm --details --clean-deps ${@:2}'...${RESET}"
         echo ""
         sudo sudo zypper rm --details --clean-deps "${@:2}"
     else
-        echo "${RED}Unrecognized option, use zrmd -h.${RESET}"
+        echo "${RED}Unrecognized option.${RESET}"
+        echo "Usage:"
+        echo "zrmd -d to run 'sudo zypper rm --details'"
+        echo "zrmd -cd to run 'sudo zypper rm --details --clean-deps'"
+    fi
+}
+
+# zypper search function
+zse() {
+    if [[ $1 = "-h" ]]; then
+        echo "Usage:"
+        echo "zse to run 'zypper se'"
+        echo "zse -d to run 'zypper se --details'"
+    elif [[ $1 != "-d" ]]; then
+        echo "${GREEN}Running 'zypper se ${@:1}'...${RESET}"
+        echo ""
+        zypper se "${@:1}"
+    elif [[ $1 = "-d" ]]; then
+        echo "${GREEN}Running 'zypper se --details ${@:2}...'${RESET}"
+        echo ""
+        zypper se --details "${@:2}"
+    else
+        echo "${RED}Unrecognized option, use zse -h.${RESET}"
+        echo "Usage:"
+        echo "zse to run 'zypper se'"
+        echo "zse -d to run 'zypper se --details'"
+    fi
+}
+
+# zypper refresh function
+zref() {
+    if [[ $1 = "-h" ]]; then
+        echo "Usage:"
+        echo "zref to run 'sudo zypper ref'"
+        echo "zref -f to run 'sudo zypper ref --force'"
+    elif [[ -z $1 ]]; then
+        echo "${GREEN}Running 'sudo zypper ref'...${RESET}"
+        echo ""
+        sudo zypper ref
+    elif [[ $1 = "-f" ]]; then
+        echo "${GREEN}Running 'sudo zypper ref --force'...${RESET}"
+        echo ""
+        sudo zypper ref --force
+    else
+        echo "${RED}Unrecognized option.${RESET}"
+        echo "Usage:"
+        echo "zref to run 'sudo zypper ref'"
+        echo "zref -f to run 'sudo zypper ref --force'"
     fi
 }
