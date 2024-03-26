@@ -224,11 +224,11 @@ then
 fi
 
 #---------------------------------------------------------------------------------
-# Enable "The Fuck" https://github.com/nvbn/thefuck
+# Enable "keychain" if running in a headless server
 #---------------------------------------------------------------------------------
-if ! [ -x "$(command -v thefuck)" ]
-then
-    echo "${RED}thefuck${RESET} is not installed"
-else
-    eval $(thefuck --alias)
+if [ -z "$DISPLAY" ]; then
+    # The DISPLAY environment variable isn't set, so we're likely on a headless server
+    /usr/bin/keychain $HOME/.ssh/github $HOME/.ssh/guinuxbr_ed25519
+    source $HOME/.keychain/$HOSTNAME-sh
 fi
+
