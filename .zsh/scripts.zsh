@@ -131,21 +131,21 @@ zrmd() {
 zse() {
     if [[ $1 = "-h" ]]; then
         echo "Usage:"
-        echo "zse to run 'zypper se'"
-        echo "zse -d to run 'zypper se --details'"
+        echo "zse to run 'sudo zypper se'"
+        echo "zse -d to run 'sudo zypper se --details'"
     elif [[ $1 != "-d" ]]; then
         echo "${GREEN}Running 'zypper se ${@:1}'...${RESET}"
         echo ""
-        zypper se "${@:1}"
+        sudo zypper se "${@:1}"
     elif [[ $1 = "-d" ]]; then
         echo "${GREEN}Running 'zypper se --details ${@:2}...'${RESET}"
         echo ""
-        zypper se --details "${@:2}"
+        sudo zypper se --details "${@:2}"
     else
         echo "${RED}Unrecognized option, use zse -h.${RESET}"
         echo "Usage:"
-        echo "zse to run 'zypper se'"
-        echo "zse -d to run 'zypper se --details'"
+        echo "zse to run 'sudo zypper se'"
+        echo "zse -d to run 'sudo zypper se --details'"
     fi
 }
 
@@ -168,5 +168,27 @@ zref() {
         echo "Usage:"
         echo "zref to run 'sudo zypper ref'"
         echo "zref -f to run 'sudo zypper ref --force'"
+    fi
+}
+
+# zypper info function
+zinfo() {
+    if [[ $1 = "-h" ]]; then
+        echo "Usage:"
+        echo "zinfo to run 'sudo zypper info'"
+        echo "zinfo -c to run 'sudo zypper info --conflicts --obsoletes --provides --recommends --requires --suggests --supplements'"
+    elif [[ $1 != "-c" ]]; then
+        echo "${GREEN}Running 'sudo zypper info ${@:1}'...${RESET}"
+        echo ""
+        sudo zypper info "${@:1}"
+    elif [[ $1 = "-c" ]]; then
+        echo "${GREEN}Running 'sudo zypper info --conflicts --obsoletes --provides --recommends --requires --suggests --supplements ${@:2}...'${RESET}"
+        echo ""
+        sudo zypper info --conflicts --obsoletes --provides --recommends --requires --suggests --supplements "${@:2}"
+    else
+        echo "${RED}Unrecognized option, use zinfo -h.${RESET}"
+        echo "Usage:"
+        echo "zinfo to run 'sudo zypper info'"
+        echo "zinfo -c to run 'sudo zypper info --conflicts --obsoletes --provides --recommends --requires --suggests --supplements'"
     fi
 }

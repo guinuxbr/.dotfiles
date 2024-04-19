@@ -91,7 +91,7 @@ format = "[[$symbol $common_meaning$signal_name$maybe_int]]($style) "
 
 [hostname]
 ssh_only = false
-ssh_symbol = " 🔒🐚"
+ssh_symbol = "🆂🆂🅷"
 format = "[$ssh_symbol](bold blue) on [$hostname](bold green) "
 #trim_at = ".companyname.com"
 disabled = false
