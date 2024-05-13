@@ -180,7 +180,7 @@ fi
 # Enable ZSH syntax-highlighting plugin
 #---------------------------------------------------------------------------------
 
-if [[ $OSNAME == "openSUSE" ]]
+if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]]
 then
     ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
@@ -203,7 +203,7 @@ fi
 #---------------------------------------------------------------------------------
 # Enable ZSH autosuggestions plugin
 #---------------------------------------------------------------------------------
-if [[ $OSNAME == "openSUSE" ]]
+if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]]
 then
     ZSH_AUTOSUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
