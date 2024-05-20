@@ -134,11 +134,11 @@ zse() {
         echo "zse to run 'sudo zypper se'"
         echo "zse -d to run 'sudo zypper se --details'"
     elif [[ $1 != "-d" ]]; then
-        echo "${GREEN}Running 'zypper se ${@:1}'...${RESET}"
+        echo "${GREEN}Running 'sudo zypper se ${@:1}'...${RESET}"
         echo ""
         sudo zypper se "${@:1}"
     elif [[ $1 = "-d" ]]; then
-        echo "${GREEN}Running 'zypper se --details ${@:2}...'${RESET}"
+        echo "${GREEN}Running 'sudo zypper se --details ${@:2}...'${RESET}"
         echo ""
         sudo zypper se --details "${@:2}"
     else

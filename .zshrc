@@ -8,24 +8,12 @@ BLUE='\033[0;34m'
 RESET='\033[0m'
 
 #---------------------------------------------------------------------------------
-# Check the Linux distribution name
+# Export Environment Variables
 #---------------------------------------------------------------------------------
-export OSNAME=$(lsb_release -i | cut -f 2-)
-
-#---------------------------------------------------------------------------------
-# Set PATH
-#---------------------------------------------------------------------------------
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin
-
-#---------------------------------------------------------------------------------
-# Export the local Ethernet IP
-#---------------------------------------------------------------------------------
-export ELAN_IP=$(ip a | grep -E "scope global.*enp" | grep -Po '(?<=inet )[\d.]+')
-
-#---------------------------------------------------------------------------------
-# Export the local Wireless IP
-#---------------------------------------------------------------------------------
-export WLAN_IP=$(ip a |  grep -E "scope global.*wl" | grep -Po '(?<=inet )[\d.]+')
+export OSNAME=$(lsb_release -i | cut -f 2-)  # Check the Linux distribution name
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin  # Set PATH
+export ELAN_IP=$(ip a | grep -E "scope global.*enp" | grep -Po '(?<=inet )[\d.]+') # Export the local Ethernet IP
+export WLAN_IP=$(ip a |  grep -E "scope global.*wl" | grep -Po '(?<=inet )[\d.]+') # Export the local Wireless IP
 
 #---------------------------------------------------------------------------------
 # Enable some basic completions
@@ -37,43 +25,27 @@ promptinit
 #---------------------------------------------------------------------------------
 # Enable the history file
 #---------------------------------------------------------------------------------
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt appendhistory
-
+HISTFILE=~/.zsh_history  # The path to the history file
+HISTSIZE=10000  # The maximum number of events to save in the history file
+SAVEHIST=$HISTSIZE  # The maximum number of events in the history file
+HISTDUP=erase  # Erase duplicates in the history file
+setopt appendhistory  # Append history to the history file (no overwriting)
+setopt sharehistory  # Share history across terminals
+setopt hist_ignore_space  # Don't record an entry starting with a space
+setopt hist_ignore_all_dups  # Delete old recorded entry if new entry is a duplicate
+setopt hist_save_no_dups  # Don't write duplicate entries in the history file
+setopt hist_ignore_dups  # Don't record an entry that was just recorded again
+setopt hist_find_no_dups  # Don't display a line previously found
+setopt AUTO_PUSHD   # Push the current directory visited on the stack.
+setopt PUSHD_IGNORE_DUPS  # Do not store duplicates in the stack.
+setopt PUSHD_SILENT   # Do not print the directory stack after pushd or popd.
+setopt COMPLETE_ALIASES  # Enable autocompletion of command line switches for aliases
 #---------------------------------------------------------------------------------
-# Enable custom scripts
+# zstyle options
 #---------------------------------------------------------------------------------
-source $HOME/.zsh/scripts.zsh
-
-#---------------------------------------------------------------------------------
-# Load aliases file
-#---------------------------------------------------------------------------------
-source $HOME/.zsh/aliases.zsh
-
-#---------------------------------------------------------------------------------
-# Configure the direcory stack
-# See alias for 'dirs -v'
-#---------------------------------------------------------------------------------
-setopt AUTO_PUSHD           # Push the current directory visited on the stack.
-setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
-setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
-
-#---------------------------------------------------------------------------------
-# Enable arrow selection
-#---------------------------------------------------------------------------------
-zstyle ':completion:*' menu select
-
-#---------------------------------------------------------------------------------
-# Enable autocompletion of command line switches for aliases
-#---------------------------------------------------------------------------------
-setopt COMPLETE_ALIASES
-
-#---------------------------------------------------------------------------------
-# Enable autocompletion of privileged environments in privileged commands.
-#---------------------------------------------------------------------------------
-zstyle ':completion::complete:*' gain-privileges 1
+zstyle ':completion:*' menu select  # Enable arrow selection in autocompletion
+zstyle ':completion::complete:*' gain-privileges 1  # Enable autocompletion of privileged environments in privileged commands
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # Enable case-insensitive autocompletion
 
 #---------------------------------------------------------------------------------
 # Set up key bindings
@@ -137,8 +109,7 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
 #---------------------------------------------------------------------------------
-# Enable Pacman "command-not-found". "pkgfile" should be installed
-# For Arch Linux only
+# Enable Pacman "command-not-found". "pkgfile" should be installed (Arch Linux only)
 #---------------------------------------------------------------------------------
 if [[ $OSNAME == "Arch" ]]
 then
@@ -152,9 +123,13 @@ then
 fi
 
 #---------------------------------------------------------------------------------
-# Start the SSH agent automatically
-# Ensure only one ssh-agent process is running
-# For Arch Linux only
+# Load external functionalities
+#---------------------------------------------------------------------------------
+source $HOME/.zsh/scripts.zsh  # Load custom scripts
+source $HOME/.zsh/aliases.zsh  # Load aliases
+
+#---------------------------------------------------------------------------------
+# Start the SSH agent automatically ans ensure only one process is running (Arch Linux only)
 #---------------------------------------------------------------------------------
 if [[ $OSNAME == "Arch" ]]
 then
