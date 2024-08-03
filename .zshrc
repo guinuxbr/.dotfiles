@@ -207,3 +207,13 @@ if [ -z "$DISPLAY" ]; then
     source $HOME/.keychain/$HOSTNAME-sh
 fi
 
+#---------------------------------------------------------------------------------
+# Enable a command_not_found_handler for openSUSE
+#---------------------------------------------------------------------------------
+if [[ $OSNAME == "openSUSE" ]]
+then   
+    command_not_found_handler() {
+        echo "'$1' does not seem to be installed."
+        cnf "$1"
+    }
+fi
