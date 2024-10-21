@@ -213,7 +213,12 @@ fi
 if [[ $OSNAME == "openSUSE" ]]
 then   
     command_not_found_handler() {
-        echo "'$1' does not seem to be installed."
+        echo "Either '$1' is not installed or can only be executed by root."
         cnf "$1"
     }
 fi
+
+#---------------------------------------------------------------------------------
+# Enable Atuin to handle the shell history
+#---------------------------------------------------------------------------------
+eval "$(atuin init zsh)"
