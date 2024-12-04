@@ -129,16 +129,33 @@ source $HOME/.zsh/scripts.zsh  # Load custom scripts
 source $HOME/.zsh/aliases.zsh  # Load aliases
 
 #---------------------------------------------------------------------------------
-# Start the SSH agent automatically ans ensure only one process is running (Arch Linux only)
+# Check if Starship is installed and load it, if not, load a native Zsh theme 
 #---------------------------------------------------------------------------------
-if [[ $OSNAME == "Arch" ]]
+if ! [ -x "$(command -v starship)" ]
 then
-    if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-        ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
-    fi
-    if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
-        source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-    fi
+    prompt fade green
+else
+    eval "$(starship init zsh)"
+fi
+
+#---------------------------------------------------------------------------------
+# Enable "keychain" if running in a headless server
+#---------------------------------------------------------------------------------
+if [ -z "$DISPLAY" ]; then
+    # The DISPLAY environment variable isn't set, so we're likely on a headless server
+    /usr/bin/keychain $HOME/.ssh/github $HOME/.ssh/guinuxbr_ed25519
+    source $HOME/.keychain/$HOSTNAME-sh
+fi
+
+#---------------------------------------------------------------------------------
+# Enable a command_not_found_handler for openSUSE
+#---------------------------------------------------------------------------------
+if [[ $OSNAME == "openSUSE" ]]
+then   
+    command_not_found_handler() {
+        echo "Either '$1' is not installed or can only be executed by root."
+        cnf "$1"
+    }
 fi
 
 #---------------------------------------------------------------------------------
@@ -149,6 +166,16 @@ then
     prompt fade green
 else
     eval "$(starship init zsh)"
+fi
+
+#---------------------------------------------------------------------------------
+# Enable Atuin to handle the shell history
+#---------------------------------------------------------------------------------
+if ! [ -x "$(command -v atuin)" ]
+then
+    :
+else
+    eval "$(atuin init zsh)"
 fi
 
 #---------------------------------------------------------------------------------
@@ -197,28 +224,3 @@ then
         source $ZSH_AUTOSUGGESTIONS
     fi
 fi
-
-#---------------------------------------------------------------------------------
-# Enable "keychain" if running in a headless server
-#---------------------------------------------------------------------------------
-if [ -z "$DISPLAY" ]; then
-    # The DISPLAY environment variable isn't set, so we're likely on a headless server
-    /usr/bin/keychain $HOME/.ssh/github $HOME/.ssh/guinuxbr_ed25519
-    source $HOME/.keychain/$HOSTNAME-sh
-fi
-
-#---------------------------------------------------------------------------------
-# Enable a command_not_found_handler for openSUSE
-#---------------------------------------------------------------------------------
-if [[ $OSNAME == "openSUSE" ]]
-then   
-    command_not_found_handler() {
-        echo "Either '$1' is not installed or can only be executed by root."
-        cnf "$1"
-    }
-fi
-
-#---------------------------------------------------------------------------------
-# Enable Atuin to handle the shell history
-#---------------------------------------------------------------------------------
-eval "$(atuin init zsh)"
