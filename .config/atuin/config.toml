@@ -30,7 +30,7 @@ dialect = "uk"
 
 ## address of the sync server
 # sync_address = "https://api.atuin.sh"
-# sync_address = "http://192.168.200.50:9999"
+sync_address = "https://atuin.lan.guinuxbr.com"
 
 ## how often to sync history. note that this is only triggered when a command
 ## is ran, so sync intervals may well be longer
