@@ -109,34 +109,10 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
 #---------------------------------------------------------------------------------
-# Enable Pacman "command-not-found". "pkgfile" should be installed (Arch Linux only)
-#---------------------------------------------------------------------------------
-if [[ $OSNAME == "Arch" ]]
-then
-    COMMAND_NOT_FOUND="/usr/share/doc/pkgfile/command-not-found.zsh"
-    if ! [[ -f $COMMAND_NOT_FOUND ]]
-    then
-        echo "${RED}pkgfile${RESET} is not installed"
-    else
-        source $COMMAND_NOT_FOUND
-    fi
-fi
-
-#---------------------------------------------------------------------------------
 # Load external functionalities
 #---------------------------------------------------------------------------------
 source $HOME/.zsh/scripts.zsh  # Load custom scripts
 source $HOME/.zsh/aliases.zsh  # Load aliases
-
-#---------------------------------------------------------------------------------
-# Check if Starship is installed and load it, if not, load a native Zsh theme 
-#---------------------------------------------------------------------------------
-if ! [ -x "$(command -v starship)" ]
-then
-    prompt fade green
-else
-    eval "$(starship init zsh)"
-fi
 
 #---------------------------------------------------------------------------------
 # Enable "keychain" if running in a headless server
@@ -156,6 +132,20 @@ then
         echo "Either '$1' is not installed or can only be executed by root."
         cnf "$1"
     }
+fi
+
+#---------------------------------------------------------------------------------
+# Enable Pacman "command-not-found". "pkgfile" should be installed (Arch Linux only)
+#---------------------------------------------------------------------------------
+if [[ $OSNAME == "Arch" ]]
+then
+    COMMAND_NOT_FOUND="/usr/share/doc/pkgfile/command-not-found.zsh"
+    if ! [[ -f $COMMAND_NOT_FOUND ]]
+    then
+        echo "${RED}pkgfile${RESET} is not installed"
+    else
+        source $COMMAND_NOT_FOUND
+    fi
 fi
 
 #---------------------------------------------------------------------------------
