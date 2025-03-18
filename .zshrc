@@ -10,7 +10,7 @@ RESET='\033[0m'
 #---------------------------------------------------------------------------------
 # Export Environment Variables
 #---------------------------------------------------------------------------------
-export OSNAME=$(lsb_release -i | cut -f 2-)  # Check the Linux distribution name
+export OSNAME=$(hostnamectl | grep "Operating System" | cut -d" " -f3)  # Check the Linux distribution name
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin  # Set PATH
 export ELAN_IP=$(ip a | grep -E "scope global.*enp" | grep -Po '(?<=inet )[\d.]+') # Export the local Ethernet IP
 export WLAN_IP=$(ip a |  grep -E "scope global.*wl" | grep -Po '(?<=inet )[\d.]+') # Export the local Wireless IP
@@ -159,7 +159,7 @@ then
 fi
 
 #---------------------------------------------------------------------------------
-# Check if Starship is installed and load it, if not, load a native Zsh theme 
+# Check if Starship is installed and load it, if not, load a native Zsh theme
 #---------------------------------------------------------------------------------
 if ! [ -x "$(command -v starship)" ]
 then
@@ -169,7 +169,7 @@ else
 fi
 
 #---------------------------------------------------------------------------------
-# Enable Atuin to handle the shell history
+# Check if Atuin is installed and load it, if not, do nothing
 #---------------------------------------------------------------------------------
 if ! [ -x "$(command -v atuin)" ]
 then
@@ -179,10 +179,22 @@ else
 fi
 
 #---------------------------------------------------------------------------------
+# Check if Pyenv is installed and load it, if not, do nothing
+#---------------------------------------------------------------------------------
+if ! [ -x "$(command -v pyenv)" ]
+then
+    :
+else
+    export PYENV_ROOT="$HOME/.pyenv"
+    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init - zsh)"
+fi
+
+#---------------------------------------------------------------------------------
 # Enable ZSH syntax-highlighting plugin
 #---------------------------------------------------------------------------------
 
-if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]]
+if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]] || [[ $OSNAME == "Ubuntu" ]]
 then
     ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
@@ -205,7 +217,7 @@ fi
 #---------------------------------------------------------------------------------
 # Enable ZSH autosuggestions plugin
 #---------------------------------------------------------------------------------
-if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]]
+if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]] || [[ $OSNAME == "Ubuntu" ]]
 then
     ZSH_AUTOSUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
