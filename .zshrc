@@ -118,15 +118,6 @@ source $HOME/.zsh/aliases.zsh  # Load aliases
 [ -n "$SSH_AGENT_PID" ] || eval "$(ssh-agent -s)"
 
 #---------------------------------------------------------------------------------
-# Enable "keychain" if running in a headless server
-#---------------------------------------------------------------------------------
-if [ -z "$DISPLAY" ]; then
-    # The DISPLAY environment variable isn't set, so we're likely on a headless server
-    /usr/bin/keychain $HOME/.ssh/github $HOME/.ssh/guinuxbr_ed25519
-    source $HOME/.keychain/$HOSTNAME-sh
-fi
-
-#---------------------------------------------------------------------------------
 # Enable a command_not_found_handler for openSUSE
 #---------------------------------------------------------------------------------
 if [[ $OSNAME == "openSUSE" ]]
