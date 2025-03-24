@@ -114,8 +114,10 @@ zle -N down-line-or-beginning-search
 source $HOME/.zsh/scripts.zsh  # Load custom scripts
 source $HOME/.zsh/aliases.zsh  # Load aliases
 
-# Check if ssh-agent is running. If not, start it.
-[ -n "$SSH_AGENT_PID" ] || eval "$(ssh-agent -s)"
+#---------------------------------------------------------------------------------
+# Check if the ssh-agent is running. If not, start it
+#---------------------------------------------------------------------------------
+[ -n "$SSH_AGENT_PID" ] || eval "$(ssh-agent -s)" > /dev/null
 
 #---------------------------------------------------------------------------------
 # Enable a command_not_found_handler for openSUSE
