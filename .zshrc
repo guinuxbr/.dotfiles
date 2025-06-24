@@ -13,7 +13,7 @@ RESET='\033[0m'
 export OSNAME=$(hostnamectl | grep "Operating System" | cut -d" " -f3)  # Check the Linux distribution name
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin  # Set PATH
 export ELAN_IP=$(ip a | grep -E "scope global.*enp" | grep -Po '(?<=inet )[\d.]+') # Export the local Ethernet IP
-export WLAN_IP=$(ip a |  grep -E "scope global.*wl" | grep -Po '(?<=inet )[\d.]+') # Export the local Wireless IP
+export WLAN_IP=$(ip a | grep -E "scope global.*wl" | grep -Po '(?<=inet )[\d.]+') # Export the local Wireless IP
 
 #---------------------------------------------------------------------------------
 # Enable some basic completions
@@ -133,21 +133,21 @@ fi
 #---------------------------------------------------------------------------------
 # Enable Pacman "command-not-found". "pkgfile" should be installed (Arch Linux only)
 #---------------------------------------------------------------------------------
-if [[ $OSNAME == "Arch" ]]
-then
-    COMMAND_NOT_FOUND="/usr/share/doc/pkgfile/command-not-found.zsh"
-    if ! [[ -f $COMMAND_NOT_FOUND ]]
-    then
-        echo "${RED}pkgfile${RESET} is not installed"
-    else
-        source $COMMAND_NOT_FOUND
-    fi
-fi
+# if [[ $OSNAME == "Arch" ]]
+# then
+#     COMMAND_NOT_FOUND="/usr/share/doc/pkgfile/command-not-found.zsh"
+#     if ! [[ -f $COMMAND_NOT_FOUND ]]
+#     then
+#         echo "${RED}pkgfile${RESET} is not installed"
+#     else
+#         source $COMMAND_NOT_FOUND
+#     fi
+# fi
 
 #---------------------------------------------------------------------------------
 # Check if Starship is installed and load it, if not, load a native Zsh theme
 #---------------------------------------------------------------------------------
-if ! [ -x "$(command -v starship)" ]
+if ! [[ -x "$(command -v starship)" ]]
 then
     prompt fade green
 else
@@ -157,7 +157,7 @@ fi
 #---------------------------------------------------------------------------------
 # Check if Atuin is installed and load it, if not, do nothing
 #---------------------------------------------------------------------------------
-if ! [ -x "$(command -v atuin)" ]
+if ! [[ -x "$(command -v atuin)" ]]
 then
     :
 else
@@ -167,7 +167,7 @@ fi
 #---------------------------------------------------------------------------------
 # Check if Pyenv is installed and load it, if not, do nothing
 #---------------------------------------------------------------------------------
-if ! [ -x "$(command -v pyenv)" ]
+if ! [[ -x "$(command -v pyenv)" ]]
 then
     :
 else
