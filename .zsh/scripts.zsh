@@ -5,7 +5,9 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 RESET='\033[0m'
 
+############################################################
 # Matrix function
+############################################################
 matrix() {
     local lines=$(tput lines)
     cols=$(tput cols)
@@ -39,13 +41,17 @@ while :; do
 done | awk "$awkscript"
 }
 
+############################################################
 # Shrinkpdf function
+############################################################
 shrinkpdf() {
     gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$2" "$1" 
 
-} 
+}
 
+############################################################
 # GPOS - Git Push On Steroids :)
+############################################################
 gpos() {
     if [[ -z $1 ]]; then
         echo "A commit mesage must be passed as an argument."
@@ -61,7 +67,9 @@ gpos() {
     fi
 }
 
+############################################################
 # zypper dup function
+############################################################
 zdup() {
     if [[ $1 = "-h" ]] || [[ -z $1 ]]; then
         echo "Usage:"
@@ -83,7 +91,9 @@ zdup() {
     fi
 }
 
+############################################################
 # zypper install function
+############################################################
 zind() {
     if [[ $1 = "-h" ]] || [[ -z $1 ]]; then
         echo "Usage:"
@@ -105,7 +115,9 @@ zind() {
     fi
 }
 
+############################################################
 # zypper remove function
+############################################################
 zrmd() {
     if [[ $1 = "-h" ]] || [[ -z $1 ]]; then
         echo "Usage:"
@@ -127,7 +139,9 @@ zrmd() {
     fi
 }
 
+############################################################
 # zypper search function
+############################################################
 zse() {
     if [[ $1 = "-h" ]]; then
         echo "Usage:"
@@ -149,7 +163,9 @@ zse() {
     fi
 }
 
+############################################################
 # zypper refresh function
+############################################################
 zref() {
     if [[ $1 = "-h" ]]; then
         echo "Usage:"
@@ -171,7 +187,9 @@ zref() {
     fi
 }
 
+############################################################
 # zypper info function
+############################################################
 zinfo() {
     if [[ $1 = "-h" ]]; then
         echo "Usage:"
@@ -193,7 +211,9 @@ zinfo() {
     fi
 }
 
+############################################################
 # Arch Linux Pacman command-not-found handler
+############################################################
 command_not_found_handler() {
     local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
     printf 'zsh: command not found: %s\n' "$1"
@@ -219,4 +239,24 @@ command_not_found_handler() {
         done
     fi
     return 127
+}
+
+############################################################
+# Arch Linux full system upgrade function
+############################################################
+alup() {
+    if [[ $1 = "-h" ]]; then
+        echo "Usage:"
+        echo "alup to run 'paru && flatpak update && fwupdmgr update'"
+    else
+        echo ""
+        echo "${GREEN}########## Running 'paru'... ##########${RESET}"
+        paru
+        echo ""
+        echo "${GREEN}########## Running 'flatpak update'... ##########${RESET}"
+        flatpak update
+        echo ""
+        echo "${GREEN}########## Running 'fwupdmgr update'... ##########${RESET}"
+        fwupdmgr update
+    fi
 }
