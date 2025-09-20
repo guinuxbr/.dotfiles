@@ -165,18 +165,6 @@ else
 fi
 
 #---------------------------------------------------------------------------------
-# Check if Pyenv is installed and load it, if not, do nothing
-#---------------------------------------------------------------------------------
-if ! [[ -x "$(command -v pyenv)" ]]
-then
-    :
-else
-    export PYENV_ROOT="$HOME/.pyenv"
-    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init - zsh)"
-fi
-
-#---------------------------------------------------------------------------------
 # Enable ZSH syntax-highlighting plugin
 #---------------------------------------------------------------------------------
 
@@ -189,7 +177,7 @@ then
     else
         source $ZSH_SYNTAX_HIGHLIGHTING
     fi
-elif [[ $OSNAME == "Arch" ]]
+elif [[ $OSNAME == "Arch" ]] || [[ $OSNAME == "CachyOS" ]]
 then
     ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
@@ -212,7 +200,7 @@ then
     else
         source $ZSH_AUTOSUGGESTIONS
     fi
-elif [[ $OSNAME == "Arch" ]]
+elif [[ $OSNAME == "Arch" ]] || [[ $OSNAME == "CachyOS" ]]
 then
     ZSH_AUTOSUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
     if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
