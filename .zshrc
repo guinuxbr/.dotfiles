@@ -82,12 +82,13 @@ key[Shift-Tab]="${terminfo[kcbt]}"
 
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
-if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
-        autoload -Uz add-zle-hook-widget
-        function zle_application_mode_start { echoti smkx }
-        function zle_application_mode_stop { echoti rmkx }
-        add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
-        add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
+if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} ))
+then
+    autoload -Uz add-zle-hook-widget
+    function zle_application_mode_start { echoti smkx }
+    function zle_application_mode_stop { echoti rmkx }
+    add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
+    add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
 # Enable Shift, Alt, Ctrl and Meta modifiers
@@ -117,14 +118,6 @@ source $HOME/.zsh/aliases.zsh  # Load aliases
 # Check if the ssh-agent is running. If not, start it
 #---------------------------------------------------------------------------------
 [ -n "$SSH_AGENT_PID" ] || eval "$(ssh-agent -s)" > /dev/null
-
-#---------------------------------------------------------------------------------
-# Enable a command_not_found_handler for openSUSE
-#---------------------------------------------------------------------------------
-if [[ $OSNAME == "Arch" ]] || [[ $OSNAME == "CachyOS" ]]
-then   
-    command_not_found_handler()
-fi
 
 #---------------------------------------------------------------------------------
 # Check if Mise is installed and load it, if not, do nothing
@@ -159,7 +152,6 @@ fi
 #---------------------------------------------------------------------------------
 # Enable ZSH syntax-highlighting plugin
 #---------------------------------------------------------------------------------
-
 if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]] || [[ $OSNAME == "Ubuntu" ]] || [[ $OSNAME == "Debian" ]]
 then
     ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
