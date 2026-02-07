@@ -42,14 +42,6 @@ done | awk "$awkscript"
 }
 
 ############################################################
-# Shrinkpdf function
-############################################################
-shrinkpdf() {
-    gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$2" "$1" 
-
-}
-
-############################################################
 # GPOS - Git Push On Steroids :)
 ############################################################
 gpos() {

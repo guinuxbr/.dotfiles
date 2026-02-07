@@ -110,7 +110,7 @@ zle -N down-line-or-beginning-search
 #---------------------------------------------------------------------------------
 # Load external functionalities
 #---------------------------------------------------------------------------------
-source $HOME/.zsh/scripts.zsh  # Load custom scripts
+source $HOME/.zsh/functions.zsh  # Load custom functions
 source $HOME/.zsh/aliases.zsh  # Load aliases
 
 #---------------------------------------------------------------------------------
@@ -121,12 +121,9 @@ source $HOME/.zsh/aliases.zsh  # Load aliases
 #---------------------------------------------------------------------------------
 # Enable a command_not_found_handler for openSUSE
 #---------------------------------------------------------------------------------
-if [[ $OSNAME == "openSUSE" ]]
+if [[ $OSNAME == "Arch" ]] || [[ $OSNAME == "CachyOS" ]]
 then   
-    command_not_found_handler() {
-        echo "Either '$1' is not installed or can only be executed by root."
-        cnf "$1"
-    }
+    command_not_found_handler()
 fi
 
 #---------------------------------------------------------------------------------
@@ -163,7 +160,7 @@ fi
 # Enable ZSH syntax-highlighting plugin
 #---------------------------------------------------------------------------------
 
-if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]] || [[ $OSNAME == "Ubuntu" ]]
+if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]] || [[ $OSNAME == "Ubuntu" ]] || [[ $OSNAME == "Debian" ]]
 then
     ZSH_SYNTAX_HIGHLIGHTING="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     if ! [[ -f $ZSH_SYNTAX_HIGHLIGHTING ]]
@@ -186,7 +183,7 @@ fi
 #---------------------------------------------------------------------------------
 # Enable ZSH autosuggestions plugin
 #---------------------------------------------------------------------------------
-if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]] || [[ $OSNAME == "Ubuntu" ]]
+if [[ $OSNAME == "openSUSE" ]] || [[ $OSNAME == "Fedora" ]] || [[ $OSNAME == "Ubuntu" ]] || [[ $OSNAME == "Debian" ]]
 then
     ZSH_AUTOSUGGESTIONS="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     if ! [[ -f $ZSH_AUTOSUGGESTIONS ]]
