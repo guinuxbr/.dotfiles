@@ -234,12 +234,12 @@ command_not_found_handler() {
 }
 
 ############################################################
-# Arch Linux full system upgrade function
+# Arch Linux and Arch-based full system upgrade function
 ############################################################
-alup() {
+agb() {
     if [[ $1 = "-h" ]]; then
         echo "Usage:"
-        echo "alup to run 'paru && flatpak update && fwupdmgr update'"
+        echo "agb to run 'paru && flatpak update && fwupdmgr update'"
     else
         echo ""
         echo "${GREEN}########## Running 'paru'... ##########${RESET}"
